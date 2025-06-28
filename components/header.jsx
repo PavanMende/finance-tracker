@@ -4,7 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { LayoutDashboard } from "lucide-react";
 import { PenBox } from "lucide-react";
-export const Header = () => {
+import { checkUser } from "@/lib/checkUser";
+export const Header = async() => {
+  await checkUser();
   return (
     <div className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b ">
       <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -20,7 +22,7 @@ export const Header = () => {
         <div className="flex items-center space-x-4">
           <SignedIn>
             <Link
-              href={"/dashboard"}
+              href="/dashboard"
               className="text-grey-600 hover:text-blue-600 flex items-center gap-2"
             >
               <Button variant="outline">
@@ -36,7 +38,7 @@ export const Header = () => {
             </Link>
           </SignedIn>
           <SignedOut>
-            <SignInButton forceRedirectUrl="/dashboard">
+            <SignInButton >
               <Button variant="outline">Login</Button>
             </SignInButton>
           </SignedOut>
