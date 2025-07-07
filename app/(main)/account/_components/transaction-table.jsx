@@ -163,6 +163,7 @@ const TransactionTable = ({ transactions }) => {
   useEffect(() => {
     if (deleted && !deleteLoading) {
       toast.error("Transaction deleted successfully");
+      setSelectedIds([])
     }
   }, [deleted, deleteLoading]);
 
