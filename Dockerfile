@@ -9,7 +9,8 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-COPY .env.production .env.production
+# Use .env since you have .env (change if you want to support production env)
+COPY .env .env
 RUN npm run build
 
 # 3. Final runtime image
@@ -25,7 +26,7 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/next.config.js ./next.config.js
-COPY --from=builder /app/.env.production ./.env.production
+COPY --from=builder /app/.env ./.env
 
 # Run Next.js app on Cloud Run expected port
 CMD ["npx", "next", "start", "-p", "8080"]
