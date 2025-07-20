@@ -2,6 +2,7 @@
 FROM node:20-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json* ./
+COPY prisma ./prisma    
 RUN npm install
 
 # 2. Build the Next.js app
